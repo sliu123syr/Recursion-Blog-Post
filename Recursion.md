@@ -79,8 +79,8 @@ two() returns			|one|
 <p>So why is this important in relation to recursion? Well, calling a function recursively is no different than calling a function normally, at least when it pertains to the call stack and the function’s stack frame. Every time a function is called, a stack frame will be created and pushed onto a call stack, complete with all the arguments, local variables, pointers, addresses, and space in the memory that a stack frame would normally be complete with. Normally, this amount of memory allocation is fine. If a function can operate correctly without recursion, it would only take up a single stack frame in the call stack. Only one stack frame will be pushed onto the stack and only one will be popped. But a recursive function, that works by calling itself over and over again, will push any number of stack frames to the call stack over and over again.</p>
 <p>Take this simple code that calculates the number of square roots less than a given number.</p>
 <pre><code>def roots(num):
-    if (num == 0):
-	    return 0
+    	if (num == 0):
+	    	return 0
 	elif (sqrt(num).is_integer()):
 		return 1 + roots(num - 1)
 	else:
@@ -100,8 +100,8 @@ two() returns			|one|
     	else:
         	return n * recursiveFactorial(n - 1)
 
-	def main():
-    		print(recursiveFactorial(1000))
+def main():
+    	print(recursiveFactorial(1000))
 </code></pre>
 <p>Output:</p>
 <pre><code>RecursionError: maximum recursion depth exceeded in comparison
@@ -116,8 +116,8 @@ two() returns			|one|
     	else:
         	return recursiveFactorial(n - 1, n * acc)
 
-	def main():
-		print(recursiveFactorial(5, 1)
+def main():
+	print(recursiveFactorial(5, 1)
 </code></pre>
 <p>Tail recursion is possible in this implementation of recursiveFactorial because we are using an accumulator, represented by the second argument in the function call, to keep track of the value of the result. In the first initial call to recursiveFactorial in main, we pass in an initial accumulator of 1. In the first execution of recursiveFactorial, the recursive case is triggered, calling the function again, this time with an accumulator value of 5. During the execution of the next recursive call, the accumulator is 20. Once the base case is triggered, we are ready to return the value of the accumulator, which will be 120, the value of 5!.</p>
 <p>The reason why tail recursion avoids growing the call stack is because, once the next recursive call is done, there is nothing left to do in the current function call, so the stack frame for the call of the current function is no use. Once recursiveFunction(5, 1) calls recursiveFunction(4, 5), recursiveFunction(4, 5) will yield the same result as recursiveFunction(5, 1), which means that recursiveFunction(5, 1) is no longer necessary. Note that this is only possible because the call to the next function is the last thing done by the recursive case. If we, for whatever reason, needed to add 3 to the result of recursiveFunction(4, 5) once it returns, we would still need recursiveFunction(5, 1) and by extention, its stack frame, because it still has work to do.</p>
