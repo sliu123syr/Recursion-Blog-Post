@@ -72,8 +72,8 @@ else:
 one()					|one|
 two()					|one|two|
 three()					|one|two|three|
-three() returns			|one|two|
-two() returns			|one|
+three() returns				|one|two|
+two() returns				|one|
 </code></pre>
 <p>The above illustrates the call stack during the execution of the one function. When three is called, the call stack contains all three functions. When three returns a value, the three stack frame is removed from the call stack, transitioning control to the two function and leaving only one and two in the call stack. And when two returns, the two stack frame is removed from the call stack, leaving one.</p>
 <p>So why is this important in relation to recursion? Well, calling a function recursively is no different than calling a function normally, at least when it pertains to the call stack and the function’s stack frame. Every time a function is called, a stack frame will be created and pushed onto a call stack, complete with all the arguments, local variables, pointers, addresses, and space in the memory that a stack frame would normally be complete with. Normally, this amount of memory allocation is fine. If a function can operate correctly without recursion, it would only take up a single stack frame in the call stack. Only one stack frame will be pushed onto the stack and only one will be popped. But a recursive function, that works by calling itself over and over again, will push any number of stack frames to the call stack over and over again.</p>
