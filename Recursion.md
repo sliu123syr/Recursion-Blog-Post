@@ -32,16 +32,16 @@
 </code></pre>
 <p>The value of a Fibonacci number given its index in the sequence will be one if its place in the sequence is either one or zero. This is the base case. Otherwise, the value of the number will be equal to the Fibonacci number with an index one less of the given index plus the value of the number with an index two less than the given index. This is the recursive case.</p>
 <pre><code>def binarySearch(arr, low, high, x):
-if high &gt;= low:
-    mid = (high + low)
-    if arr[mid] == x:
-        return mid
-    elif arr[mid] &gt; x:
-        return binarySearch(arr, low, mid - 1, x)
-    else:
-        return binarySearch(arr, mid + 1, high, x)
-else:
-    return -1
+	if high &gt;= low:
+    		mid = (high + low)
+    	if arr[mid] == x:
+        	return mid
+    	elif arr[mid] &gt; x:
+        	return binarySearch(arr, low, mid - 1, x)
+    	else:
+        	return binarySearch(arr, mid + 1, high, x)
+	else:
+    		return -1
 </code></pre>
 <p>A binary search a more efficient search algorithm than traditionally iterating through a list to find a value. The algorithm works by partitioning the array it was given in half, finding out which of the two halves can contain the value it is looking for, and then recursively calling that particular half. The base case occurs when the low value is greater than the high value, a case where the given value does not exist in the array, and when the middle value of the array is found to equal the given value, at which point the value has been found. The recursive case occurs when the middle value does not equal the given value, which means that the value exists in either of the two halves we partitioned, meaning that we would have to recursively call binarySearch on those two halves.</p>
 <h2 id="things-to-look-out-for">Things To Look Out For</h2>
@@ -100,8 +100,8 @@ two() returns			|one|
     	else:
         	return n * recursiveFactorial(n - 1)
 
-def main():
-    	print(recursiveFactorial(1000))
+	def main():
+    		print(recursiveFactorial(1000))
 </code></pre>
 <p>Output:</p>
 <pre><code>RecursionError: maximum recursion depth exceeded in comparison
@@ -116,8 +116,8 @@ def main():
     	else:
         	return recursiveFactorial(n - 1, n * acc)
 
-def main():
-	print(recursiveFactorial(5, 1)
+	def main():
+		print(recursiveFactorial(5, 1)
 </code></pre>
 <p>Tail recursion is possible in this implementation of recursiveFactorial because we are using an accumulator, represented by the second argument in the function call, to keep track of the value of the result. In the first initial call to recursiveFactorial in main, we pass in an initial accumulator of 1. In the first execution of recursiveFactorial, the recursive case is triggered, calling the function again, this time with an accumulator value of 5. During the execution of the next recursive call, the accumulator is 20. Once the base case is triggered, we are ready to return the value of the accumulator, which will be 120, the value of 5!.</p>
 <p>The reason why tail recursion avoids growing the call stack is because, once the next recursive call is done, there is nothing left to do in the current function call, so the stack frame for the call of the current function is no use. Once recursiveFunction(5, 1) calls recursiveFunction(4, 5), recursiveFunction(4, 5) will yield the same result as recursiveFunction(5, 1), which means that recursiveFunction(5, 1) is no longer necessary. Note that this is only possible because the call to the next function is the last thing done by the recursive case. If we, for whatever reason, needed to add 3 to the result of recursiveFunction(4, 5) once it returns, we would still need recursiveFunction(5, 1) and by extention, its stack frame, because it still has work to do.</p>
