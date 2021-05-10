@@ -8,8 +8,8 @@
 <p>Recursion is a computer science concept that is present in almost every programming language. Compared to loops, which are absent in racket, or matching, which is absent in python and java, recursion is present in all three. This is because, unlike most other features of programming languages, recursion is in and if itself, fairly simple. Any programming language with the ability to call functions within the program will be able to implement recursion. Recursion itself involves a function calling itself. The implementation and syntax of recursion is fairly straightforward. However, the concept of recursion as well as the multitude of its uses and flexibility can make the concept an extremely complex part of computer science.</p>
 <p>A recursive function contains two elements, a base case and a recursive case. A recursive case is a case which will case the function to call itself. This is the primary element that causes recursive functions to behave the way that that do. Without a recursive case, a function will act as it normally would. A base case is a case which will cause the function to not call itself and instead return a normal value. This is extremely important. Without a base case, a recursive function will call itself over and over again without any way to terminate.</p>
 <pre><code>def recursiveFunction(num)
-    if (num == 0):
-	    return 1
+ 	if (num == 0):
+	   	return 1
 	else:
 		return recursiveFunction(num - 1)
 </code></pre>
@@ -17,8 +17,8 @@
 <h3 id="the-purpose-of-recursion">The Purpose of Recursion</h3>
 <p>Imagine you want to count the number of leaves on a tree. The trunk of the tree splits up into 2 branches, which can contain any number of leaves and further splits itself up into either 1 or 2 smaller branches. Each branch of the tree will either diverge into smaller branches, or will not split up into any at all. What would be the best approach for us to count every leaf on the tree? The best way for us to approach a problem as large as this would be to break it into smaller problems. If we were to start on the trunk of the tree, we would see it split up into 2 smaller branches. We would know that the value of the the total number of leaves on the tree would equal the total number of leaves on the trunk, plus the number of leaves in each of the branches attached to the trunk combined. And the number of leaves on each branch of the tree extending from the trunk would equal the number of leaves on that branch plus the number of leaves on the branches extending from that branch. In this way, we have created a function, countLeaves, which would take in a branch and return the number of leaves on that branch. But in order for it to do so, it would have to recursively call itself, countLeaves, on each branch extending from itself and add the values from that to the number of leaves on that branch.</p>
 <pre><code>def countLeaves(node):
-    if (node == null):
-	    return 0
+    	if (node == null):
+	    	return 0
 	else:
 		return (node.data + countLeaves(node.left) + countLeaves(node.right))
 </code></pre>
@@ -47,16 +47,16 @@ else:
 <h2 id="things-to-look-out-for">Things To Look Out For</h2>
 <p>You’ve probably seen from the examples that we’ve covered, just how important the base case is. Calling a function recursively means that you expect a response, a return value. No matter how many calls of the recursive function you make, every single one of them should return a value, and the base case is responsible for that. Take a look at the given example that we looked at before.</p>
 <pre><code>def recursiveFunction(num)
-    if (num == 0):
-	    return 1
+    	if (num == 0):
+	    	return 1
 	else:
 		return recursiveFunction(num - 1)
 </code></pre>
 <p>If the main were to call this function with a negative argument value, such as -5, the base case will never be reached. The first call of the function will fail the if conditional and recursively call the function again with an argument of -6. Because of this, the function will call itself over and over again without terminating since the recursive function will never be called with an argument of 0. This is not a compile time or run time error and may be hard to find if you’re not careful.</p>
 <p>Similarly, circularity is another problem that will prevent you from reaching your base case. Circularity occurs when the arguments for a recursive function either are the same as the arguments in the previous call of the function in the stack, or the same as with a previous function call somewhere further back. If you call a recursive function with an argument of 4, which leads the function to call itself with an argument of 4, you end up with an infinite loop, but if an argument of 4 leads to a function call with an argument of 5, which leads to a function call with an argument of 8, which leads to a function call with an argument of 4, you will also find an infinite loop. The sequence of 4 to 5 to 8 to 4 will repeat itself forever. Sometimes, it’s hard to correctly identify circularity in a function.</p>
 <pre><code>def syracuse(num):
-    if (num == 1):
-	    print("Terminated")
+    	if (num == 1):
+	    	print("Terminated")
 	elif (num % 2 == 0):
 		syracuse(num / 2)
 	else:
@@ -95,13 +95,13 @@ two() returns			|one|
 <p>So why is all of this important in regards to efficiency? Like we mentioned before, calling a function recursively is no different to the system than calling a function normally. And for each call of the function, it takes a small amount of time for the call to be initialize and the stack frame set up. Even a simple recursive function can take up significant system resources if the function is called too much. It’s important to keep in mind the efficient of your function in relation to the amount of work your function is doing. If you’re planning on recursively calling a function many times, and your function’s job can be done inside of a loop, it’s likely that implementing a loop will be take up less system resources than recursion.</p>
 <p>Another important idea to consider is that the amount of memory that’s available to you is not infinite. As a result, the maximum size of your call stack will not be infinite. Take a look at what might happen if you recursively call a function too many time.</p>
 <pre><code>def recursiveFactorial(n):
-    if (n == 1):
-        return 1
-    else:
-        return n * recursiveFactorial(n - 1)
+	if (n == 1):
+        	return 1
+    	else:
+        	return n * recursiveFactorial(n - 1)
 
 def main():
-    print(recursiveFactorial(1000))
+    	print(recursiveFactorial(1000))
 </code></pre>
 <p>Output:</p>
 <pre><code>RecursionError: maximum recursion depth exceeded in comparison
@@ -111,10 +111,10 @@ def main():
 <p>There is, however, one very important and very useful exception in regards to a recursive function growing the call stack. You would recall that during the recursiveFactorial() function we wrote earlier, during each recursive case of the each call of the function, we needed to multiply n to the next recursive function call. Because of this, the compiler to the program needed to make sure that each function call will grow the call stack, because there is still something each call of the function needs to do once the next recursive call returns.</p>
 <p>With this, we are able to avoid growing the call stack by implementing our recursive functions in such a way so as to make sure that the recursive call is the very last thing done by the function before returning (This is not the case in recursiveFactorial(). In recursiveFactorial(), multiplying n is the last thing done to the function before returning). Take a look at the following implementation of recursiveFactorial() using tail recursion.</p>
 <pre><code>def recursiveFactorial(n, acc):
-    if (n == 1):
-        return acc
-    else:
-        return recursiveFactorial(n - 1, n * acc)
+    	if (n == 1):
+        	return acc
+    	else:
+        	return recursiveFactorial(n - 1, n * acc)
 
 def main():
 	print(recursiveFactorial(5, 1)
