@@ -125,3 +125,4 @@ def main():
 <h2 id="conclusion">Conclusion</h2>
 <p>Recursion is one of the most important concepts in computer science. It can be an extremely useful tool in countless problems you will encounter and has been implemented in many of the most well known established computer science solutions out there. But like most other computer science tools, recursion can get extremely complicated on a conceptual level, and extremely dangerous on a technical level, which is why being able to understand recursion is one of the most important steps you can take.</p>
 
+(Syracuse Problem)[https://en.wikipedia.org/wiki/Collatz_conjecture]
